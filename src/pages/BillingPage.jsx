@@ -172,17 +172,33 @@ export default function BillingPage() {
   const total_amount =
     rate * actual_days;
 
+  // const isToTheNew =
+  //   employee?.client_name?.trim().toLowerCase() ===
+  //   "to the new";
+
+  // const tds = isToTheNew
+  //   ? 0
+  //   : total_amount * 0.10;
+
+  // const gst = isToTheNew
+  //   ? 0
+  //   : total_amount * 0.18;
+
   const isToTheNew =
-    employee?.client_name?.trim().toLowerCase() ===
-    "to the new";
+  employee?.client_name?.trim().toLowerCase() ===
+  "to the new";
 
-  const tds = isToTheNew
-    ? 0
-    : total_amount * 0.10;
+const applyZeroDeduction =
+  isToTheNew &&
+  !employee.ignore_zero_deduction;
 
-  const gst = isToTheNew
-    ? 0
-    : total_amount * 0.18;
+const tds = applyZeroDeduction
+  ? 0
+  : total_amount * 0.10;
+
+const gst = applyZeroDeduction
+  ? 0
+  : total_amount * 0.18;
 
   const post_tds =
     total_amount - tds;
