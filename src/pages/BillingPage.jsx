@@ -207,35 +207,35 @@ export default function BillingPage() {
   };
 };
 
-  const handleDelete = async (id) => {
+//   const handleDelete = async (id) => {
 
-  try {
+//   try {
 
-    const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/billing/delete/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+//     const res = await fetch(
+//       `${import.meta.env.VITE_API_URL}/billing/delete/${id}`,
+//       {
+//         method: "DELETE",
+//       }
+//     );
 
-    if (res.ok) {
+//     if (res.ok) {
 
-      alert("Invoice Deleted Successfully");
+//       alert("Invoice Deleted Successfully");
 
-      fetchBilling();
+//       fetchBilling();
 
-    } else {
+//     } else {
 
-      alert("Delete Failed");
+//       alert("Delete Failed");
 
-    }
+//     }
 
-  } catch (error) {
+//   } catch (error) {
 
-    console.error(error);
+//     console.error(error);
 
-  }
-};
+//   }
+// };
 
   // ✅ SELECTED EMPLOYEE
   const selectedEmployee = employees.find(
@@ -606,10 +606,18 @@ export default function BillingPage() {
 
           </div>
 
+          
+
           {/* TABLE */}
           <div className="bg-[#FFF8F0] border border-[#EAD7C3] rounded-2xl shadow-sm overflow-hidden">
 
-            <BillingTable data={billingData}  onDelete={handleDelete} />
+            {/* <BillingTable data={billingData}  onDelete={handleDelete} /> */}
+
+            <BillingTable
+    data={billingData}
+    fetchBilling={fetchBilling}
+/>
+
 
           </div>
 

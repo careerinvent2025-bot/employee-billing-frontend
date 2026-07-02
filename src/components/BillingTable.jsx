@@ -1,6 +1,7 @@
 import { generateInvoicePDF } from "../utils/generateInvoice";
 
-export default function BillingTable({ data , onDelete }) {
+// export default function BillingTable({ data , onDelete }) {
+export default function BillingTable({ data, fetchBilling }) {
   return (
     <div className="w-full overflow-x-auto rounded-2xl border border-[#EAD7C3] bg-white shadow-sm">
 
@@ -156,7 +157,8 @@ export default function BillingTable({ data , onDelete }) {
 <td className="px-5 py-4 align-middle whitespace-nowrap text-center">
 
   <button
-    onClick={() => {
+    // onClick={() => {
+      onClick={async () => {
 
        console.log("DELETE BUTTON CLICKED");
 
@@ -169,12 +171,45 @@ export default function BillingTable({ data , onDelete }) {
       //   onDelete(item.id);
       // }
 
-      if (confirmDelete) {
+//       if (confirmDelete) {
 
-  console.log("CALLING HANDLE DELETE");
-  console.log("ID =", item.id);
+//   console.log("CALLING HANDLE DELETE");
+//   console.log("ID =", item.id);
 
-  onDelete(item.id);
+//   // onDelete(item.id);
+//   console.log("typeof onDelete =", typeof onDelete);
+// console.log("value =", onDelete);
+// }
+
+if (confirmDelete) {
+
+  try {
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/billing/delete/${item.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (res.ok) {
+
+      alert("Invoice Deleted Successfully");
+
+      fetchBilling();
+
+    } else {
+
+      alert("Delete Failed");
+
+    }
+
+  } catch (err) {
+
+    console.error(err);
+
+  }
+
 }
 
     }}
